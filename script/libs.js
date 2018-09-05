@@ -1,22 +1,22 @@
 const $ = (x) => document.querySelector(x);
 
+// TODO: seleccionarla mejor herramienta
 const lectorMultiple = function (files) {
-    const salida = {
-        nombre: files.name
-    }
     const reader = new FileReader();
     return new Promise((resolve, reject) => {
         reader.onload = (x) => {
-            salida.result = x.target.result;
-
+            const result = x.target.result;
             let img = new Image;
             img.onload = () => {
-                salida.width = img.width;
-                salida.height = img.height;
-                resolve(salida);
+                resolve({
+                    // TODO: Si hay un png limpiarlo de lo contrario mandar error
+                    name: files.name.split(".png")[0],
+                    width: img.width,
+                    height: img.height,
+                    result: result
+                });
             }
-            img.src = salida.result;
-
+            img.src = result;
         }
         reader.readAsDataURL(files);
     });

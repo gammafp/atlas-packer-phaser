@@ -12,22 +12,26 @@
 
 <body ng-controller="mainCtrl">
     <main>
-        <div id="output">
+        <div id="output" ng-style="styleOut">
             <div class="col-gamma" ng-repeat="imgs in archivos">
-                <img ng-repeat="img in imgs" src="{{img.result}}">
+                <span class="uno" ng-repeat="img in imgs" class="selected" ng-click="editarImage(img.name)">
+                    <img src="{{img.result}}">{{img.name}}
+                </span>
             </div>
-            <!-- <div class="col-gamma">
-                <img src="./recursos/mario_01.png" alt=""><img src="./recursos/mario_07.png" alt=""><img src="./recursos/mario_03.png" alt="">
-            </div> -->
         </div>
-        {{archivos[0].name}}
     </main>
-    <button ng-click="obtenerImagen()">Producir</button>
-    <input type="file" ng-module="archivo" id="archivo" multiple file-on-change="onFileChange">
+    <div>
+        <button ng-click="obtenerImagen()">Producir</button>
+        <input type="file" ng-module="archivo" id="archivo" multiple file-on-change="onFileChange">
+    </div>
+    <div>
+        <button ng-click="zoomFunction('zoomOut')">zoom -</button>
+        <button ng-click="zoomFunction('zoomIn')">zoom +</button>
+    </div>
 
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="./node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="./node_modules/popper.js/dist/umd/popper.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="./node_modules/ramda/dist/ramda.min.js"></script>
 

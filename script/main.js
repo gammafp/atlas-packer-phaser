@@ -3,6 +3,8 @@ const myApp = angular.module("miApp", []);
 myApp.controller("mainCtrl", ["$scope", ($scope) => {
 
     $scope.archivos = [];
+    $scope.styleOut = {};
+    $scope.zoom = 1;
 
     // Primera carga de las imágenes
     $scope.onFileChange = async function (e) {
@@ -21,17 +23,29 @@ myApp.controller("mainCtrl", ["$scope", ($scope) => {
        
         function mostrar() {
             $scope.archivos = multiRE(salida, 2);
-            $scope.$apply();
             console.log($scope.archivos);
+            $scope.$apply();
         }
+    }
 
+    $scope.zoomFunction = (zoomType) => {
 
+        if(zoomType === 'zoomIn') {
+            $scope.zoom++;
+        } else {
+            $scope.zoom--;
+        }
+        $scope.styleOut.transform = `scale(${$scope.zoom})`;
+    }
+    $scope.editarImage = (imagen) => {
+        console.log(imagen);
     }
 
     // Salida de imágen final
     $scope.obtenerImagen = function () {
         const objetoSalia = $('#output');
-        // objetoSalia.style.transform = "scale(1)";
+        objetoSalia.style.transform = "scale(1)";
+        $(".uno").style.border = "none";
         html2canvas(objetoSalia, {
             backgroundColor: 'rgba(0, 0, 0, 0)'
         }).then((canvas) => {
@@ -41,11 +55,13 @@ myApp.controller("mainCtrl", ["$scope", ($scope) => {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
-            // objetoSalia.style.transform = "scale(4)";
+            objetoSalia.style.transform = `scale(${$scope.zoom})`;
         });
     }
 }]);
 
+
+// Directiva para cargar imágenes en tiempo real (no se usa en Angular 6)
 myApp.directive('fileOnChange', function () {
     return {
         restrict: 'A',
