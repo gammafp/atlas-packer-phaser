@@ -20,9 +20,9 @@ myApp.controller("mainCtrl", ["$scope", ($scope) => {
         });
        
         function mostrar() {
-            $scope.archivos.push(...salida);
-            console.log($scope.archivos);
+            $scope.archivos = multiRE(salida, 2);
             $scope.$apply();
+            console.log($scope.archivos);
         }
 
 

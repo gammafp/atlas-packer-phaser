@@ -6,24 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 
 <body ng-controller="mainCtrl">
     <main>
         <div id="output">
-            <div class="col-gamma" ng-repeat="img in archivos">
-                <img src="./recursos/mario_01.png" alt=""><img src="{{img.result}}" alt=""><img src="./recursos/mario_03.png" alt="">
+            <div class="col-gamma" ng-repeat="imgs in archivos">
+                <img ng-repeat="img in imgs" src="{{img.result}}">
             </div>
-            <div class="col-gamma">
+            <!-- <div class="col-gamma">
                 <img src="./recursos/mario_01.png" alt=""><img src="./recursos/mario_07.png" alt=""><img src="./recursos/mario_03.png" alt="">
-            </div>
+            </div> -->
         </div>
         {{archivos[0].name}}
     </main>
     <button ng-click="obtenerImagen()">Producir</button>
     <input type="file" ng-module="archivo" id="archivo" multiple file-on-change="onFileChange">
-    
+
+
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/popper.js/dist/popper.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/ramda/dist/ramda.min.js"></script>
+
     <script src="./node_modules/phaser/dist/phaser.min.js"></script>
     <script src="./script/libs.js"></script>
     <script src="./node_modules/angular/angular.min.js"></script>
