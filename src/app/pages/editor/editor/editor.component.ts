@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ImgFilesService } from '../../../services/img-files.service';
 
 @Component({
   selector: 'app-editor',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditorComponent implements OnInit {
 
-  constructor() { }
+  constructor(public imgFilesService: ImgFilesService) { }
 
   ngOnInit() {
+      console.log(this.imgFilesService.getImages());
   }
 
 }

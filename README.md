@@ -12,8 +12,8 @@ Para iniciar el servidor es en la consola haciendo
 ### Comandos útiles: 
 Generacion de páginas lazyload (ejemplo): 
 ```
-ng g m home --routing true --spec false
-ng g c home/home --spec false
+ng g m pages/home --routing true --spec false
+ng g c pages/home/home --spec false
 ```
 
 Una vez creada la página hay que editar el routing y agregar el componente principal: 

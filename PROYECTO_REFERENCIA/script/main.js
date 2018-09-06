@@ -10,7 +10,7 @@ myApp.controller("mainCtrl", ["$scope", ($scope) => {
     $scope.onFileChange = async function (e) {
         const file = e.target.files;
         const array = Array.from(file);
-        
+
         let salida = [];
 
         array.map( async (x, i) => {
@@ -20,7 +20,7 @@ myApp.controller("mainCtrl", ["$scope", ($scope) => {
                 mostrar();
             }
         });
-       
+
         function mostrar() {
             $scope.archivos = multiRE(salida, 2);
             console.log($scope.archivos);

@@ -31,6 +31,7 @@
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css"
                         ],
                         "scripts": [
+                            "./src/assets/vendor/libs.js",
                             "./node_modules/html2canvas/dist/html2canvas.min.js",
                             "./node_modules/sweetalert2/dist/sweetalert2.all.min.js",
                             "./node_modules/jquery/dist/jquery.min.js",
