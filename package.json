@@ -27,6 +27,7 @@
     "popper.js": "^1.14.4",
     "ramda": "^0.25.0",
     "rxjs": "^6.0.0",
+    "sweetalert2": "^7.26.23",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

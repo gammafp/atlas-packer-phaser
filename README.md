@@ -9,6 +9,25 @@ Un software simple para empaquetar grupo de imágenes y crearnos un atlas para P
 Para iniciar el servidor es en la consola haciendo 
 ```ng serve```
 
+### Comandos útiles: 
+Generacion de páginas lazyload (ejemplo): 
+```
+ng g m home --routing true --spec false
+ng g c home/home --spec false
+```
+
+Una vez creada la página hay que editar el routing y agregar el componente principal: 
+```javascript
+import { EditorComponent } from './editor/editor.component';
+...
+const routes: Routes = [{
+    path: '',
+    component: EditorComponent
+}];
+
+```
+Luego agregarlo a la ruta como siempre.
+
 ---
 
 ## Proyecto en desarrollo
