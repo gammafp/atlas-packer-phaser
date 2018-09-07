@@ -3,11 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { EditorRoutingModule } from './editor-routing.module';
 import { EditorComponent } from './editor/editor.component';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
     CommonModule,
-    EditorRoutingModule
+    EditorRoutingModule,
+    FormsModule
   ],
   declarations: [EditorComponent]
 })

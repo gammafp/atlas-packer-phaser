@@ -4,6 +4,7 @@ import { ImgFilesService } from '../../../services/img-files.service';
 declare var $: any;
 declare var multiRE: any;
 declare var html2canvas: any;
+declare var readMultipleFiles: any;
 
 @Component({
     selector: 'app-editor',
@@ -13,10 +14,22 @@ declare var html2canvas: any;
 export class EditorComponent implements OnInit {
     imagesFiles: Array<Object>;
     spritePerRow: Number = 3;
-    constructor(public imgFilesService: ImgFilesService) {
-        this.imagesFiles = multiRE(this.imgFilesService.getImages(), this.spritePerRow);
-    }
+    constructor(public imgFilesService: ImgFilesService) {}
 
+    // Agrega nuevos sprites
+    uploadAddFilesMulti(files) {
+        const Files = Array.from(files.target.files);
+        const outputFiles = [];
+
+        Files.map(async (x, i) => {
+            const resultado = await readMultipleFiles(x);
+            outputFiles.push(resultado);
+            if (Files.length - 1 === i) {
+                this.imgFilesService.insertNewSprites(outputFiles);
+                this.ngOnInit();
+            }
+        });
+    }
 
     generatePNGJSON(): void {
         html2canvas($('#output'), {
