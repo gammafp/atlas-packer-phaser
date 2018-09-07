@@ -14,8 +14,8 @@
     <main>
         <div id="output" ng-style="styleOut">
             <div class="col-gamma" ng-repeat="imgs in archivos">
-                <span class="uno" ng-repeat="img in imgs" class="selected" ng-click="editarImage(img.name)">
-                    <img src="{{img.result}}">
+                <span class="uno" ng-repeat="img in imgs" ng-style="{'width': img.width}" ng-click="editarImage(img.name)">
+                    <img src="{{img.result}}" >
                 </span>
             </div>
         </div>

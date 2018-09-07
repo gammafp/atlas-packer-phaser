@@ -1,0 +1,18 @@
+#output {
+    outline: 1px solid blue;
+    .col-gamma {
+        display: flex;
+    }
+    span.box {
+        // outline: 1px solid black;
+        display: flex;
+        width: 100%;
+        div {
+            margin-top: auto;
+            // padding: 0px;
+        }
+    }
+}
+
+
+

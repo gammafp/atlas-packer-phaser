@@ -1,12 +1,21 @@
 <div class="container">
     <div class="row">
-        <div class="col">
-            <!-- Espacio para pintar los sprites -->
+        <!-- Espacio para pintar los sprites -->
+        <div class="col justify-content-center d-flex mt-5">
+            <!-- {{imagesFiles | json}} -->
+            <div id="output" ng-style="styleOut">
+                <div class="col-gamma" *ngFor="let images of imagesFiles">
+                    <span class="box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}" ng-click="editarImage(img.name)">
+                        <div>
+                            <img src="{{image.result}}">
+                        </div>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <form>
                 <div class="form-group">
                     <button class="btn btn-secondary mr-3">ZoomOut</button>
                     <button class="btn btn-secondary">ZoomIn</button>
@@ -26,8 +35,7 @@
                     <input type="number" class="form-control-file" id="spritePerRow">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Guardar proyecto</button>
-            </form>
+                <button class="btn btn-primary" (click)="generatePNGJSON($event)">Guardar proyecto</button>
         </div>
     </div>
 

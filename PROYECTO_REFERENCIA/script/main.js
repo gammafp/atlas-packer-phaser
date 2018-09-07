@@ -22,7 +22,7 @@ myApp.controller("mainCtrl", ["$scope", ($scope) => {
         });
 
         function mostrar() {
-            $scope.archivos = multiRE(salida, 2);
+            $scope.archivos = multiRE(salida, 3);
             console.log($scope.archivos);
             $scope.$apply();
         }
@@ -42,7 +42,8 @@ myApp.controller("mainCtrl", ["$scope", ($scope) => {
     }
 
     // Salida de imágen final
-    $scope.obtenerImagen = function () {
+    $scope.obtenerImagen = function (e) {
+        e.preventDefault();
         const objetoSalia = $('#output');
         objetoSalia.style.transform = "scale(1)";
         $(".uno").style.border = "none";

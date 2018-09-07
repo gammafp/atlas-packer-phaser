@@ -24,7 +24,8 @@ main {
 
 #output .col-gamma {
     /* border: 2px  dotted black; */
-    display: flex;
+    /* display: flex; */
+    /* display: inline-block; */
 }
 #output .col-gamma span.uno {
     outline: 1px dotted black;
