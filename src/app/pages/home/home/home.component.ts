@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ImgFilesService } from '../../../services/img-files.service';
 
 declare var readMultipleFiles: any;
+declare var swal: any;
 
 @Component({
     selector: 'app-home',
@@ -27,9 +28,14 @@ export class HomeComponent implements OnInit {
 
     filesCharged() {
         // console.log(this.outputFiles);
-        console.log('Mostrar swall');
         this.imgFilesService.setImages(this.outputFiles);
-        this.router.navigate(['editor']);
+        swal(
+            'Good job!',
+            'Your image/s are uploaded',
+            'success'
+        ).then(() => {
+            this.router.navigate(['editor']);
+        });
     }
 
     ngOnInit() {
