@@ -58,7 +58,7 @@ export class EditorComponent implements OnInit {
         // JSON export
         const jsonAtlasAnchor = document.createElement('a');
         const dataStr = 'data:text/json;charset=utf-8,' +
-            encodeURIComponent(JSON.stringify(this.atlasJsonService.getAtlas(), null, '    ').replace(/"/g, '\'') );
+            encodeURIComponent(JSON.stringify(this.atlasJsonService.getAtlas(), null, '    ') );
 
         html2canvas($('#output'), {
             backgroundColor: 'rgba(0, 0, 0, 0)'
