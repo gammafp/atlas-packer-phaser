@@ -3,13 +3,13 @@
     .col-gamma {
         display: flex;
     }
-    span.box {
+    span.content_box {
         // outline: 1px solid black;
         display: flex;
         width: 100%;
-        div {
-            margin-top: auto;
-            // padding: 0px;
+        .box {
+            // Fix bootstrap
+            line-height: 0;
         }
     }
 }

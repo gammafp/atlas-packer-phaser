@@ -5,8 +5,8 @@
             <!-- {{imagesFiles | json}} -->
             <div id="output" ng-style="styleOut">
                 <div class="col-gamma" *ngFor="let images of imagesFiles">
-                    <span class="box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}" ng-click="editarImage(img.name)">
-                        <div>
+                    <span class="content_box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}" ng-click="editarImage(img.name)">
+                        <div class="box">
                             <img src="{{image.result}}">
                         </div>
                     </span>

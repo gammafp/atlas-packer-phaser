@@ -14,7 +14,7 @@ declare var readMultipleFiles: any;
 export class EditorComponent implements OnInit {
     elementOutput: any;
     imagesFiles: Array<Object>;
-    spritePerRow: Number = 3;
+    spritePerRow: Number = 1;
     zoomScale = 1;
     constructor(public imgFilesService: ImgFilesService) {}
     ngOnInit() {
