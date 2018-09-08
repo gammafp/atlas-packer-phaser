@@ -12,9 +12,15 @@ declare var readMultipleFiles: any;
     styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit {
+    elementOutput: any;
     imagesFiles: Array<Object>;
     spritePerRow: Number = 3;
+    zoomScale = 1;
     constructor(public imgFilesService: ImgFilesService) {}
+    ngOnInit() {
+        this.elementOutput = $('#output');
+        this.imagesFiles = multiRE(this.imgFilesService.getImages(), this.spritePerRow);
+    }
 
     // Agrega nuevos sprites
     uploadAddFilesMulti(files) {
@@ -31,7 +37,18 @@ export class EditorComponent implements OnInit {
         });
     }
 
+    zoom(type): void {
+        this.zoomScale = (type === 'zoomIn') ?
+            ((this.zoomScale + 1 >= 4) ? 4 : this.zoomScale + 1)
+            : ((this.zoomScale - 1 <= 1) ? 1 : this.zoomScale - 1);
+
+        this.elementOutput.style.transform = `scale(${this.zoomScale})`;
+    }
+
     generatePNGJSON(): void {
+        const oldScale = this.elementOutput.getBoundingClientRect().width / this.elementOutput.offsetWidth;
+        this.elementOutput.style.transform = 'scale(1)';
+
         html2canvas($('#output'), {
             backgroundColor: 'rgba(0, 0, 0, 0)'
         }).then((canvas) => {
@@ -41,11 +58,9 @@ export class EditorComponent implements OnInit {
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
+            this.elementOutput.style.transform = `scale(${oldScale})`;
         });
     }
 
-    ngOnInit() {
-        this.imagesFiles = multiRE(this.imgFilesService.getImages(), this.spritePerRow);
-    }
 
 }
