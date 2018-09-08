@@ -1,5 +1,20 @@
 const $ = (x) => document.querySelector(x);
 
+// funcion creada por Lottie
+const clearString = string => {
+    const chars = {
+        'á': 'a',
+        'é': 'e',
+        'í': 'i',
+        'ó': 'o',
+        'ú': 'u',
+        'ñ': 'n',
+        ' ': '_',
+        ',': ''
+    };
+    return ((string.toLowerCase()).replace(/[áéíóúñ, ]/g, m => chars[m])).split(".png")[0];
+};
+
 // TODO: crear mejor herramienta
 const readMultipleFiles = function (files) {
     const reader = new FileReader();
@@ -10,7 +25,7 @@ const readMultipleFiles = function (files) {
             img.onload = () => {
                 resolve({
                     // TODO: Si hay un png limpiarlo de lo contrario mandar error
-                    name: files.name.split(".png")[0],
+                    name: clearString(files.name),
                     width: img.width,
                     height: img.height,
                     result: result
