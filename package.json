@@ -25,6 +25,7 @@
     "core-js": "^2.5.4",
     "html2canvas": "^1.0.0-alpha.12",
     "jquery": "^3.3.1",
+    "jszip": "^3.1.5",
     "popper.js": "^1.14.4",
     "ramda": "^0.25.0",
     "rxjs": "^6.0.0",
