@@ -15,6 +15,14 @@ const clearString = string => {
     return ((string.toLowerCase()).replace(/[áéíóúñ, ]/g, m => chars[m])).split(".png")[0];
 };
 
+// Creado por Lottie y refactorizado por gammafp
+const deleteSpriteInArray = (objectName, objectsSprite) => {
+    return objectsSprite.filter(
+        (x) =>
+            x.name != objectName
+    );
+}
+
 // TODO: crear mejor herramienta
 const readMultipleFiles = function (files) {
     const reader = new FileReader();
