@@ -1,0 +1,19 @@
+@font-face {
+    font-family: "pixel";
+    src: url("../fonts/pixel.TTF");
+}
+@font-face {
+    font-family: "point";
+    src: url("../fonts/point.ttf");
+}
+body{
+    background-color: #36393F;
+}
+header{
+    font-family: "point";
+    background-color: #2F3136;
+}
+header h3{
+    display: inline-block;
+    color: aquamarine;
+}
