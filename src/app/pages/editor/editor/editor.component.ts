@@ -4,7 +4,7 @@ import { AtlasJsonService } from '../../../services/atlas-json.service';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver/FileSaver';
 
-declare var $: any;
+declare var _$: any;
 declare var multiRE: any;
 declare var html2canvas: any;
 declare var readMultipleFiles: any;
@@ -23,10 +23,12 @@ export class EditorComponent implements OnInit {
     zoomScale = 1;
     zip: JSZip;
 
-    constructor(public imgFilesService: ImgFilesService, public atlasJsonService: AtlasJsonService) {}
+    constructor(public imgFilesService: ImgFilesService, public atlasJsonService: AtlasJsonService) {
+        this.spritePerRow = this.imgFilesService.getSpritesheetRow();
+    }
 
     ngOnInit() {
-        this.elementOutput = $('#output');
+        this.elementOutput = _$('#output');
         this.imagesFiles = multiRE(this.imgFilesService.getImages(), this.spritePerRow);
         this.atlasJsonService.generateAtlas(this.imagesFiles);
     }
@@ -70,7 +72,7 @@ export class EditorComponent implements OnInit {
         const dataStr = JSON.stringify(this.atlasJsonService.getAtlas(), null, '    ');
         zip.file(`${nameFiles}_atlas.json`, dataStr);
 
-        html2canvas($('#output'), {
+        html2canvas(_$('#output'), {
             backgroundColor: 'rgba(0, 0, 0, 0)'
         }).then((canvas) => {
             // Generate zip

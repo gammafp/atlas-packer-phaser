@@ -2,13 +2,67 @@
 <div class="container">
     <div class="row">
         <div class="col mt-3">
+            <h2>Solo imágenes</h2>
             <form>
                 <div class="form-group">
                     <label for="uploadFilesMulti">Upload images</label>
-                    <input type="file" class="form-control-file" id="uploadFilesMulti" (change)="uploadFilesMulti($event)" multiple>
+                    <input type="file" class="form-control-file" id="uploadFilesMulti" (change)="uploadFilesMulti($event)"
+                        multiple>
                 </div>
             </form>
 
+        </div>
+        <div class="col mt-3">
+            <h2>Spritesheet</h2>
+            <form>
+                <div class="form-group">
+                    <label for="uploadSpritesheet">Upload spritesheet</label>
+                    <input type="file" class="form-control-file" id="uploadSpritesheet" (change)="uploadSpritesheet($event)">
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalSpriteSheet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Spritesheet options -->
+
+                <div class="spriteSheet my-5" [ngStyle]="{'height': canvasSize.height+'px'}">
+                    <div [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px', 'overflow': 'hidden', 'outline': '1px solid green'}">
+                        <div class="spriteSheetIMG">
+                            <img src="{{printSpriteSheet}}">
+                        </div>
+                        <div *ngFor="let y of cutterLines" class="linesCut">
+                            <span *ngFor="let x of y" [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px'}">
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    Sprite width:
+                    <input type="number" [(ngModel)]="spriteSheetWidth">
+                    <br>
+                    Sprite height:
+                    <input type="number" [(ngModel)]="spriteSheetHeight">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="cutSpritesheet()">Save changes</button>
+            </div>
         </div>
     </div>
 </div>

@@ -9,7 +9,6 @@ const lectorMultiple = function (files) {
             let img = new Image;
             img.onload = () => {
                 resolve({
-                    // TODO: Si hay un png limpiarlo de lo contrario mandar error
                     name: files.name.split(".png")[0],
                     width: img.width,
                     height: img.height,

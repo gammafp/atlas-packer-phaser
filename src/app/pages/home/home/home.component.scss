@@ -1,0 +1,15 @@
+.spriteSheet {
+    line-height: 0px;
+    .spriteSheetIMG,
+    .linesCut {
+        position: absolute;
+    }
+}
+.linesCut {
+    display: flex;
+
+    span {
+        display: inline-block;
+        outline: 1px solid black;
+    }
+}
