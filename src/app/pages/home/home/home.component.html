@@ -40,12 +40,13 @@
                 <!-- Spritesheet options -->
 
                 <div class="spriteSheet my-5" [ngStyle]="{'height': canvasSize.height+'px'}">
-                    <div [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px', 'overflow': 'hidden', 'outline': '1px solid green'}">
+                    <div>
                         <div class="spriteSheetIMG">
                             <img src="{{printSpriteSheet}}">
                         </div>
-                        <div *ngFor="let y of cutterLines" class="linesCut">
-                            <span *ngFor="let x of y" [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px'}">
+                        <div *ngFor="let y of cutterLines" class="gridCut">
+                            <span *ngFor="let x of y" [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px'}" class="grid">
+
                             </span>
                         </div>
                     </div>
@@ -53,10 +54,10 @@
                 </div>
                 <div>
                     Sprite width:
-                    <input type="number" [(ngModel)]="spriteSheetWidth">
+                    <input type="number" [(ngModel)]="spriteSheetWidth" (change)="changeSizeGridCut()">
                     <br>
                     Sprite height:
-                    <input type="number" [(ngModel)]="spriteSheetHeight">
+                    <input type="number" [(ngModel)]="spriteSheetHeight" (change)="changeSizeGridCut()">
                 </div>
             </div>
             <div class="modal-footer">

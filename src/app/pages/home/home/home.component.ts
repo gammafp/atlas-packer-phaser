@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
         const height = new Array(Math.floor(sizeImage.y / this.spriteSheetHeight)).fill(0);
 
         this.cutterLines = height.map(() =>
-            width.map(() => []));
+            width.map(() => 0));
 
         this.canvasSize.width = sizeImage.x;
         this.canvasSize.height = sizeImage.y;

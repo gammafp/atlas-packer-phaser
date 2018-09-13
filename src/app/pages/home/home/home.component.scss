@@ -5,10 +5,9 @@
         position: absolute;
     }
 }
-.linesCut {
+.gridCut {
     display: flex;
-
-    span {
+    span.grid {
         display: inline-block;
         outline: 1px solid black;
     }
