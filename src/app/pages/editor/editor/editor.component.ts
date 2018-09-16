@@ -3,12 +3,16 @@ import { ImgFilesService } from '../../../services/img-files.service';
 import { AtlasJsonService } from '../../../services/atlas-json.service';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver/FileSaver';
+import { LocalStorageService } from 'ngx-store';
+import { Router } from '@angular/router';
+import { AnimatordbService } from '../../../services/animatordb.service';
 
 declare var _$: any;
 declare var multiRE: any;
 declare var html2canvas: any;
 declare var readMultipleFiles: any;
 declare var clearString: any;
+declare var swal: any;
 
 @Component({
     selector: 'app-editor',
@@ -23,7 +27,13 @@ export class EditorComponent implements OnInit {
     zoomScale = 1;
     zip: JSZip;
 
-    constructor(public imgFilesService: ImgFilesService, public atlasJsonService: AtlasJsonService) {
+    constructor(
+        public imgFilesService: ImgFilesService,
+        public atlasJsonService: AtlasJsonService,
+        public localStorage: LocalStorageService,
+        public router: Router,
+        public animatorService: AnimatordbService
+    ) {
         this.spritePerRow = this.imgFilesService.getSpritesheetRow();
     }
 
@@ -76,13 +86,42 @@ export class EditorComponent implements OnInit {
             backgroundColor: 'rgba(0, 0, 0, 0)'
         }).then((canvas) => {
             // Generate zip
-            zip.file(`${nameFiles}.png`, canvas.toDataURL().replace('data:image/png;base64,', ''), {base64: true});
-            zip.generateAsync({type: 'blob'})
-            .then(function(content) {
-                saveAs(content, `PP3.zip`);
-            });
+            zip.file(`${nameFiles}.png`, canvas.toDataURL().replace('data:image/png;base64,', ''), { base64: true });
+            zip.generateAsync({ type: 'blob' })
+                .then(function (content) {
+                    saveAs(content, `PP3.zip`);
+                });
             // End generate zip
             this.elementOutput.style.transform = `scale(${oldScale})`;
         });
     }
+    // Go to page animator
+    animate() {
+        swal({
+            title: '¿Estas seguro?',
+            text: 'Saldrás de esta página, ¿estás seguro?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, ¡vamos a animar!',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                html2canvas(_$('#output'), {
+                    backgroundColor: 'rgba(0, 0, 0, 0)'
+                }).then((canvas) => {
+                    this.animatorService.setAtlas([{
+                        'name': clearString(this.nombreSprite),
+                        'spritesheet_array': this.imagesFiles,
+                        'spritesheet': canvas.toDataURL(),
+                        'atlas': this.atlasJsonService.getAtlas()
+                    }]);
+                    this.router.navigate(['animator']);
+                });
+
+            }
+        });
+    }
+
 }

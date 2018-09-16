@@ -19,7 +19,7 @@ const clearString = string => {
 const deleteSpriteInArray = (objectName, objectsSprite) => {
     return objectsSprite.filter(
         (x) =>
-        x.name != objectName
+            (('name' in objectsSprite)) ? x.name != objectName : x.key != objectName
     );
 }
 

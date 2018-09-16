@@ -9,6 +9,10 @@ const routes: Routes = [
     {
         path: 'editor',
         loadChildren: './pages/editor/editor.module#EditorModule'
+    },
+    {
+        path: 'animator',
+        loadChildren: './pages/animator/animator.module#AnimatorModule'
     }
 ];
 
