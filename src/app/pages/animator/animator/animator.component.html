@@ -9,8 +9,8 @@
                     <div id="output">
                         <div class="col-gamma" *ngFor="let images of imagesFiles">
                             <span class="content_box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}">
-                                <div class="box">
-                                    <img src="{{image.result}}" style="outline: 1px solid red">
+                                <div class="box" style="outline: 1px solid red" (click)="addSprite(image)">
+                                    <img src="{{image.result}}" >
                                 </div>
                             </span>
                         </div>
@@ -19,9 +19,8 @@
             </div>
         </div>
         <div class="col-6">
+            Anim
             <div id="container_phaser">
-                Anim
-
             </div>
         </div>
     </div>
@@ -42,7 +41,27 @@
             </div>
         </div>
         <div class="col-8">
-            Keycodes
+            Key controls
+            <div class="row">
+                <div class="col-12">
+                    output:
+                    <span *ngFor="let frame of actualFrames">
+                        <img src="{{frame.result}}" (click)="removeSprite(frame.frame)">
+                    </span>
+                    <div class="controls">
+                        <br>
+                        <label for="repeatControl">Repeat: </label>
+                        <input type="number" id="repeatControl" min="-1" [(ngModel)]="repeatControl" (change)="updateAnimsControls()">
+                        <br>
+                        <label for="rateControl">Frame Rate: </label>
+                        <input type="number" id="rateControl" min="1" [(ngModel)]="frameRateControl" (change)="updateAnimsControls()">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" (click)="generateAnim()">Generar</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
