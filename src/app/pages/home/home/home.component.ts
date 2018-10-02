@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImgFilesService } from '../../../services/img-files.service';
 import { flatten } from 'ramda';
+import * as Typed from 'typed.js';
 
 declare var readMultipleFiles: any;
 declare var swal: any;
@@ -31,7 +32,11 @@ export class HomeComponent implements OnInit {
     // Motor nacatamalon
     nc: any;
 
-    constructor(private router: Router, public imgFilesService: ImgFilesService) {
+    constructor(
+        private router: Router,
+        public imgFilesService: ImgFilesService,
+        private elementRef: ElementRef
+        ) {
         this.nc = new NacatamalON();
         this.canvasSize = {
             width: 0,
@@ -95,6 +100,15 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#1A2226';
+
+        const options = {
+            strings: ['Import sprite', 'Imports spritesheet'],
+            typeSpeed: 50,
+            loop: true
+        };
+        const typed = new Typed('.element', options);
+
     }
 
 }

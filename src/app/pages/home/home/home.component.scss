@@ -1,3 +1,4 @@
+// Modal
 .spriteSheet {
     line-height: 0px;
     .spriteSheetIMG,
@@ -11,4 +12,59 @@
         display: inline-block;
         outline: 1px solid black;
     }
+}
+
+// Diseño main
+.img-logo {
+    width: 62px;
+    height: 62px;
+ }
+ .logo h4 {
+     line-height: 62px;
+     font-size: 40px;
+     font-family: "point";
+     color: var(--color-secondary);
+ }
+
+ main {
+     min-height: calc(100vh - 50px);
+     font-family: "pressStart";
+ }
+
+ footer {
+     color: white;
+     height: 50px;
+     background-color: var(--bg-dark-color);
+ }
+
+
+// Input styles
+.btn-input {
+    display: inline-block;
+    transition: .5s transform;
+}
+
+.btn-input:hover {
+    transform: scale(1.2);
+}
+
+.btn-image-md {
+    width: 62px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
 }

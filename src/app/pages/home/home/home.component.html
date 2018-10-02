@@ -1,29 +1,41 @@
-<!-- Estructura provisional -->
-<div class="container">
-    <div class="row">
-        <div class="col mt-3">
-            <h2>Solo imágenes</h2>
-            <form>
-                <div class="form-group">
-                    <label for="uploadFilesMulti">Upload images</label>
-                    <input type="file" class="form-control-file" id="uploadFilesMulti" (change)="uploadFilesMulti($event)"
-                        multiple>
-                </div>
-            </form>
-
+<main class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 d-flex justify-content-center mt-5 mb-4 logo">
+            <img src="./assets/img/app3-logo2x4.gif" class="img-logo img-crisp mr-3">
+            <h4>Atlas Packer Phaser 3</h4>
         </div>
-        <div class="col mt-3">
-            <h2>Spritesheet</h2>
-            <form>
-                <div class="form-group">
-                    <label for="uploadSpritesheet">Upload spritesheet</label>
-                    <input type="file" class="form-control-file" id="uploadSpritesheet" (change)="uploadSpritesheet($event)">
-                </div>
-            </form>
-
+        <div class="col-12 col-xs-9 col-lg-8 text-center">
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequatur alias corporis rem velit saepe
+                optio repellat delectus amet, illo eligendi recusandae provident iste. Rem fuga officia autem odit,
+                consectetur blanditiis.</p>
+            <p class="my-5">
+                <span class="element"></span>
+            </p>
         </div>
     </div>
-</div>
+    <!-- Formulario -->
+    <div class="row justify-content-center">
+        <div class="col-12 col-xs-9 col-lg-8 text-center">
+            <div class="fileUpload btn-input mr-4">
+                <span>
+                    <img src="./assets/img/frame.png" class="btn-image-md img-crisp">
+                </span>
+                <input type="file" class="upload" id="uploadFilesMulti" (change)="uploadFilesMulti($event)"
+                multiple title="Click to import sprite">
+            </div>
+            <div class="fileUpload btn-input">
+                <span>
+                    <img src="./assets/img/spritesheet.png" class="btn-image-md img-crisp">
+                </span>
+                <input type="file" class="upload" id="uploadSpritesheet" (change)="uploadSpritesheet($event)" title="Click to import spritesheet">
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="text-center py-3">
+    Soy footer :3
+</footer>
 
 <!-- Modal -->
 <div class="modal fade" id="modalSpriteSheet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -45,7 +57,8 @@
                             <img src="{{printSpriteSheet}}">
                         </div>
                         <div *ngFor="let y of cutterLines" class="gridCut">
-                            <span *ngFor="let x of y" [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px'}" class="grid">
+                            <span *ngFor="let x of y" [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px'}"
+                                class="grid">
 
                             </span>
                         </div>
@@ -55,9 +68,11 @@
                 <div>
                     Sprite width:
                     <input type="number" [(ngModel)]="spriteSheetWidth" (change)="changeSizeGridCut()">
+                    px
                     <br>
                     Sprite height:
                     <input type="number" [(ngModel)]="spriteSheetHeight" (change)="changeSizeGridCut()">
+                    px
                 </div>
             </div>
             <div class="modal-footer">
