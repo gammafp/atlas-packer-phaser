@@ -28,6 +28,7 @@
     "jquery": "^3.3.1",
     "jszip": "^3.1.5",
     "ngx-store": "^2.0.0",
+    "perfect-scrollbar": "^1.4.0",
     "phaser": "^3.12.0",
     "popper.js": "^1.14.4",
     "ramda": "^0.25.0",

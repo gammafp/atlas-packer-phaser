@@ -3,6 +3,7 @@
     --bg-dark-color: #141a1d;
     --bg-color: #1A2226;
     --color-primary: #e67e22;
+    --color-primary-hover: #ff8b25;
     --color-secondary: #AFD702;
     --color-white: white;
 }
@@ -33,4 +34,48 @@ img {
 
 .container {
     color: white;
+}
+
+// Input styles
+.btn-input {
+    display: inline-block;
+    transition: .5s transform;
+
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.btn-image-md {
+    width: 62px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+
+    input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 50px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+}
+
+.disabled {
+    cursor: not-allowed;
+}
+
+.zoom-in {
+    cursor: zoom-in !important;
+}
+
+.zoom-out {
+    cursor: zoom-out !important;
 }

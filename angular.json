@@ -28,10 +28,13 @@
                         ],
                         "styles": [
                             "src/styles.scss",
-                            "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+                            "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+                            "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
                         ],
                         "scripts": [
                             "./src/assets/vendor/libs.js",
+                            "./node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js",
+                            "./node_modules/typed.js/lib/typed.min.js",
                             "./node_modules/phaser/dist/phaser.min.js",
                             "./node_modules/html2canvas/dist/html2canvas.min.js",
                             "./node_modules/sweetalert2/dist/sweetalert2.all.min.js",

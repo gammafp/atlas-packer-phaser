@@ -2,8 +2,8 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ImgFilesService } from '../../../services/img-files.service';
 import { flatten } from 'ramda';
-import * as Typed from 'typed.js';
 
+declare var Typed: any;
 declare var readMultipleFiles: any;
 declare var swal: any;
 declare var $: any;

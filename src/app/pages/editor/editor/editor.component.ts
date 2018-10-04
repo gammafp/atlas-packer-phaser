@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ImgFilesService } from '../../../services/img-files.service';
 import { AtlasJsonService } from '../../../services/atlas-json.service';
 import * as JSZip from 'jszip';
@@ -6,13 +6,17 @@ import { saveAs } from 'file-saver/FileSaver';
 import { LocalStorageService } from 'ngx-store';
 import { Router } from '@angular/router';
 import { AnimatordbService } from '../../../services/animatordb.service';
+import { flatten } from 'ramda';
 
 declare var _$: any;
+declare var $: any;
+declare var NacatamalON: any;
 declare var multiRE: any;
 declare var html2canvas: any;
 declare var readMultipleFiles: any;
 declare var clearString: any;
 declare var swal: any;
+declare var PerfectScrollbar: any;
 
 @Component({
     selector: 'app-editor',
@@ -27,20 +31,49 @@ export class EditorComponent implements OnInit {
     zoomScale = 1;
     zip: JSZip;
 
+    // Spritesheet cut
+    canvasSize: any;
+    nc: any;
+    nameSpriteSheet: String = '';
+    printSpriteSheet: String = '';
+
+    spriteSheetWidth: any = 16;
+    spriteSheetHeight: any = 16;
+    cutterLines: Array<any>;
+
     constructor(
         public imgFilesService: ImgFilesService,
         public atlasJsonService: AtlasJsonService,
         public localStorage: LocalStorageService,
         public router: Router,
-        public animatorService: AnimatordbService
+        public animatorService: AnimatordbService,
+        private elementRef: ElementRef
     ) {
         this.spritePerRow = this.imgFilesService.getSpritesheetRow();
+        this.nc = new NacatamalON();
+        this.canvasSize = {
+            width: 0,
+            height: 0
+        };
     }
 
     ngOnInit() {
+        this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#1A2226';
+        this.refresh();
+
+    }
+
+    refresh() {
         this.elementOutput = _$('#output');
         this.imagesFiles = multiRE(this.imgFilesService.getImages(), this.spritePerRow);
         this.atlasJsonService.generateAtlas(this.imagesFiles);
+
+        // start tooltips system
+        $(() => {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        this.scrollBar();
     }
 
     // Agrega nuevos sprites
@@ -53,22 +86,75 @@ export class EditorComponent implements OnInit {
             outputFiles.push(resultado);
             if (Files.length - 1 === i) {
                 this.imgFilesService.insertNewSprites(outputFiles);
-                this.ngOnInit();
+                this.refresh();
             }
         });
     }
+    // Add new spritesheet
+    async uploadSpritesheet(files) {
+        const spriteSheet = await readMultipleFiles(files.target.files[0]);
+        this.printSpriteSheet = spriteSheet.result;
+        this.nameSpriteSheet = spriteSheet.name;
 
+        this.changeSizeGridCut();
+
+        $('#modalSpriteSheet').modal('show');
+    }
+
+    // Update grid
+    changeSizeGridCut() {
+        const sizeImage = this.nc.getSizeImage(this.printSpriteSheet);
+
+        const width = new Array(Math.floor(sizeImage.x / this.spriteSheetWidth)).fill(0);
+        const height = new Array(Math.floor(sizeImage.y / this.spriteSheetHeight)).fill(0);
+
+        this.cutterLines = height.map(() =>
+            width.map(() => 0));
+
+        this.canvasSize.width = sizeImage.x;
+        this.canvasSize.height = sizeImage.y;
+    }
+    // Cut images
+    cutSpritesheet() {
+        const cutSprite = this.nc.cutSpriteSheet(this.nameSpriteSheet);
+        const cutSpriteOut = flatten(cutSprite(this.printSpriteSheet, this.cutterLines, this.spriteSheetWidth, this.spriteSheetHeight));
+
+        this.filesCharged(cutSpriteOut, this.cutterLines[0].length);
+    }
+
+
+    filesCharged(files, isSpritesheet = 1) {
+        this.imgFilesService.insertNewSprites(files);
+        $('#modalSpriteSheet').modal('hide');
+        this.refresh();
+    }
+
+    // Fin spritesheet add
     zoom(type): void {
         this.zoomScale = (type === 'zoomIn') ?
             ((this.zoomScale + 1 >= 4) ? 4 : this.zoomScale + 1)
             : ((this.zoomScale - 1 <= 1) ? 1 : this.zoomScale - 1);
 
-        this.elementOutput.style.transform = `scale(${this.zoomScale})`;
+        // Fix scroll
+        const differenceScaleWith = ((this.elementOutput.offsetWidth * this.zoomScale) - (_$('.outputIMG').offsetWidth)) / 4;
+        const differenceScaleHeight = ((this.elementOutput.offsetHeight * this.zoomScale) - (_$('.outputIMG').offsetHeight)) / 4;
+        const transformElement = ((this.elementOutput.offsetWidth * this.zoomScale) > (_$('.outputIMG').offsetWidth)) ?
+            `scale(${this.zoomScale})
+            translate(${differenceScaleWith}px, ${differenceScaleHeight}px)`
+            : `scale(${this.zoomScale})`;
+
+        this.elementOutput.style.transform = transformElement;
+        this.scrollBar();
+    }
+
+    scrollBar() {
+        const ps = new PerfectScrollbar('.outputIMG');
+        ps.update();
     }
 
     deleteSprite(deleteSpriteName) {
         this.imgFilesService.deleteOneSprite(deleteSpriteName);
-        this.ngOnInit();
+        this.refresh();
     }
 
     generatePNGJSON(): void {
@@ -122,6 +208,10 @@ export class EditorComponent implements OnInit {
 
             }
         });
+    }
+
+    anchorEditor() {
+        console.log('Editor del ancla');
     }
 
 }

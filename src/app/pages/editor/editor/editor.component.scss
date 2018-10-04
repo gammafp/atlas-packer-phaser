@@ -13,3 +13,86 @@
         }
     }
 }
+// tooltip fix
+.tooltip-inner {
+    margin-left: 5px;
+}
+
+// Modal
+.spriteSheet {
+    line-height: 0px;
+    .spriteSheetIMG,
+    .linesCut {
+        position: absolute;
+    }
+}
+.gridCut {
+    display: flex;
+    span.grid {
+        display: inline-block;
+        outline: 1px solid black;
+    }
+}
+
+
+.logo-text {
+    font-size: 30px;
+    color: var(--color-secondary);
+}
+
+.img-logo-nav {
+    width: 40px;
+    height: 40px;
+}
+
+main {
+    min-height: calc(100vh - 146px);
+    color: white;
+    font-family: "pressStart";
+    font-size: 12px;
+}
+
+.outputIMG {
+    overflow: hidden;
+}
+
+.btn-gamma-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.btn-gamma-primary:hover {
+    background-color: var(--color-primary-hover);
+}
+
+.content-row-editor {
+    min-height: calc(100vh - 122px);
+}
+
+.controls-border-right {
+    border-right: 1px solid var(--bg-dark-color);
+}
+
+.btn-styles {
+    cursor: pointer;
+    transition: 1s all;
+}
+
+.btn-styles:hover {
+    transform: scale(1.2);
+}
+
+nav {
+    font-family: "point";
+}
+
+nav, footer {
+    color: white;
+    height: 60px;
+    background-color: var(--bg-dark-color);
+}
+
+footer {
+    font-family: "pressStart";
+}
+

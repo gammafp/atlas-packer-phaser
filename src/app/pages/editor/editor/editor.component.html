@@ -1,34 +1,36 @@
-<div class="container">
-    <div class="row">
-        <!-- Espacio para pintar los sprites -->
-        <div class="col justify-content-center d-flex mt-5">
-            <!-- {{imagesFiles | json}} -->
-            <div id="output" ng-style="styleOut">
-                <div class="col-gamma" *ngFor="let images of imagesFiles">
-                    <span class="content_box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}"
-                        ng-click="editarImage(img.name)">
-                        <div class="box">
-                            <img src="{{image.result}}">
-                        </div>
+<nav class="pr-5 d-flex justify-content-end align-items-center">
+    <img src="./assets/img/logo.gif" class="img-logo-nav">
+    <span class="logo-text ml-3">
+        ATLAS PACKER PHASER 3
+    </span>
+</nav>
+
+<main class="container-fluid">
+    <div class="row content-row-editor">
+        <!-- Input -->
+        <div class="col-12 col-sm-12 col-md-3 controls-border-right py-5 order-2 order-md-1">
+            <hr class="d-md-none">
+            <div class="form-group text-center">
+                <div for="moreSprites">Add more sprites</div>
+                <div class="fileUpload btn-input mr-4">
+                    <span>
+                        <img src="./assets/img/frame.png" class="btn-image-xs img-crisp">
                     </span>
+
+                    <input type="file" class="upload" id="moreSprites" (change)="uploadAddFilesMulti($event)" multiple
+                        title="Click to import sprite">
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <div class="form-group">
-                <button class="btn btn-secondary mr-3" (click)="zoom('zoomOut')">ZoomOut</button>
-                <button class="btn btn-secondary" (click)="zoom('zoomIn')">ZoomIn</button>
-            </div>
-            <div class="form-group">
-                <label for="moreSprites">Más sprites</label>
-                <input type="file" class="form-control-file" id="moreSprites" (change)="uploadAddFilesMulti($event)"
-                    multiple>
+                <!-- New spritesheet -->
+                <div class="fileUpload btn-input">
+                    <span>
+                        <img src="./assets/img/spritesheet.png" class="btn-image-xs img-crisp">
+                    </span>
+                    <input type="file" class="upload" id="uploadSpritesheet" (change)="uploadSpritesheet($event)" title="Click to import spritesheet">
+                </div>
             </div>
             <hr>
             <div class="form-group">
-                <label for="nameSprite">Nombre sprites</label>
+                <label for="nameSprite">Sprite name</label>
                 <input type="text" class="form-control-file" id="nameSprite" [(ngModel)]="nombreSprite" placeholder="{{nombreSprite}}">
             </div>
 
@@ -37,10 +39,88 @@
                 <input type="number" min="1" class="form-control-file" id="spritePerRow" [(ngModel)]="spritePerRow"
                     (change)="ngOnInit()">
             </div>
-
-            <button class="btn btn-primary" (click)="generatePNGJSON()">Guardar proyecto</button>
-            <button class="btn btn-primary ml-3" (click)="animate()">Animar!</button>
+            <hr>
+            <div class="form-group text-center">
+                <div class="my-3">
+                    Zoom:
+                </div>
+                <span (click)="zoom('zoomIn')"><img src="./assets/img/zoomIn.png" alt="ZoomIn" class="btn-styles zoom-in"></span>
+                <span class="btn-zooms" (click)="zoom('zoomOut')"><img src="./assets/img/zoomOut.png" alt="ZoomOut"
+                        class="btn-styles zoom-out"></span>
+            </div>
+            <hr>
+            <div class="form-group text-center">
+                <button class="btn btn-gamma-primary" (click)="generatePNGJSON()"><img src="./assets/img/save.png" alt="Save"></button>
+                <button class="btn btn-gamma-primary ml-3 disabled" (click)="animate()">Animate!</button>
+            </div>
+        </div>
+        <!-- Espacio para pintar los sprites -->
+        <div class="col-12 col-sm-12 col-md-9 outputIMG d-flex align-items-center order-1 order-md-2 my-4 m-md-0">
+            <div class="w-100 justify-content-center d-flex">
+                <!-- {{imagesFiles | json}} -->
+                <div id="output" ng-style="styleOut" class="debug">
+                    <div class="col-gamma" *ngFor="let images of imagesFiles">
+                        <span class="content_box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}"
+                            ng-click="editarImage(img.name)" data-toggle="tooltip" data-placement="top" title="{{image.name}}">
+                            <div class="box">
+                                <img src="{{image.result}}" (click)="anchorEditor()">
+                            </div>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</main>
 
+<footer class="py-3 text-center">
+    Soy footer :3
+</footer>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalSpriteSheet" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Spritesheet options -->
+
+                <div class="spriteSheet my-5" [ngStyle]="{'height': canvasSize.height+'px'}">
+                    <div>
+                        <div class="spriteSheetIMG">
+                            <img src="{{printSpriteSheet}}">
+                        </div>
+                        <div *ngFor="let y of cutterLines" class="gridCut">
+                            <span *ngFor="let x of y" [ngStyle]="{'width': spriteSheetWidth+'px', 'height': spriteSheetHeight+'px'}"
+                                class="grid">
+
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                    Sprite width:
+                    <input type="number" [(ngModel)]="spriteSheetWidth" (change)="changeSizeGridCut()">
+                    px
+                    <br>
+                    Sprite height:
+                    <input type="number" [(ngModel)]="spriteSheetHeight" (change)="changeSizeGridCut()">
+                    px
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" (click)="cutSpritesheet()">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
