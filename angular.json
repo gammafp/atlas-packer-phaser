@@ -27,6 +27,7 @@
                             "src/assets"
                         ],
                         "styles": [
+                            "./node_modules/animate.css/animate.min.css",
                             "src/styles.scss",
                             "./node_modules/bootstrap/dist/css/bootstrap.min.css",
                             "./node_modules/perfect-scrollbar/css/perfect-scrollbar.css"
