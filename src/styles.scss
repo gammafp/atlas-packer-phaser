@@ -79,6 +79,21 @@ img {
     cursor: zoom-out !important;
 }
 
+nav.menu {
+    font-family: "point";
+    color: white;
+    height: 60px;
+    background-color: var(--bg-dark-color);
+    .logo-text {
+        font-size: 30px;
+        color: var(--color-secondary);
+    }
+    .img-logo-nav {
+        width: 42px;
+        height: 42px;
+    }
+}
+
 footer {
     font-family: "pressStart";
     color: white;

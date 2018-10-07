@@ -21,6 +21,13 @@
     }
 }
 
+main {
+    min-height: calc(100vh - 120px);
+    color: white;
+    font-family: "pressStart";
+    font-size: 12px;
+}
+
 .key-active {
     outline: 1px solid orangered;
 }

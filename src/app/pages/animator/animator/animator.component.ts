@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService, SharedStorage } from 'ngx-store';
 import { AnimatordbService } from '../../../services/animatordb.service';
@@ -33,7 +33,9 @@ export class AnimatorComponent implements OnInit {
     constructor(
         public localStorage: LocalStorageService,
         public animatorService: AnimatordbService,
-        public router: Router) {
+        public router: Router,
+        public elementRef: ElementRef
+        ) {
         // Set atlasDB
         if (localStorage.get('atlasDB') != null || animatorService.getAtlas() !== undefined) {
             this.atlasDB = (animatorService.getAtlas() !== undefined) ?
@@ -59,6 +61,7 @@ export class AnimatorComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#1A2226';
         this.phaserCharge();
     }
 
@@ -97,15 +100,10 @@ export class AnimatorComponent implements OnInit {
         }
         function create() {
             // create anim
-            console.log('El sis: ', this.sys.game.config);
             const sprite = this.add.sprite(this.sys.game.config.width / 2, this.sys.game.config.height / 2, atlas.name);
             if (anims.length > 0) {
                 const animation = anims.filter((x) => x.key === actualKey);
                 if (animation[0]['frames'].length > 0) {
-                    console.log(' este es el actual key frame', actualKey);
-                    console.log(' esta es la animacion: ', anims);
-                    console.log('Animacion de Phaser: ', { anims: animation });
-
                     this.anims.fromJSON({ anims: animation });
                     sprite.play(actualKey);
                 }
@@ -221,13 +219,20 @@ export class AnimatorComponent implements OnInit {
         this.phaserCharge();
     }
     generateAnim() {
-        console.log(this.atlasDB);
         const zip = new JSZip();
         const nameFiles = clearString(this.atlasDB[0].name);
 
+        // Clear base64 from JSON
+        const animationsJSON = this.anims.map((x) =>
+            (x.frames = x.frames.map((y) => (delete y.result, y)),
+            x)
+        );
+
         // // JSON export
         const dataStr = JSON.stringify(this.atlasDB[0].atlas, null, '    ');
-        const animStr = JSON.stringify({anims: this.anims}, null, '    ');
+        const animStr = JSON.stringify({anims: animationsJSON}, null, '    ');
+
+        console.log(this.anims);
 
         zip.file(`${nameFiles}_atlas.json`, dataStr);
         zip.file(`${nameFiles}_anim.json`, animStr);

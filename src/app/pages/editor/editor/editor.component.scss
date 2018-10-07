@@ -34,17 +34,6 @@
     }
 }
 
-
-.logo-text {
-    font-size: 30px;
-    color: var(--color-secondary);
-}
-
-.img-logo-nav {
-    width: 40px;
-    height: 40px;
-}
-
 main {
     min-height: calc(100vh - 146px);
     color: white;
@@ -80,14 +69,4 @@ main {
 
 .btn-styles:hover {
     transform: scale(1.2);
-}
-
-nav {
-    font-family: "point";
-}
-
-nav {
-    color: white;
-    height: 60px;
-    background-color: var(--bg-dark-color);
 }
