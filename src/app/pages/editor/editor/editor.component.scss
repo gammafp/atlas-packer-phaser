@@ -1,5 +1,5 @@
 #output {
-    outline: 1px solid black;
+    outline: 1px solid var(--color-primary);
     .col-gamma {
         display: flex;
     }
@@ -86,13 +86,8 @@ nav {
     font-family: "point";
 }
 
-nav, footer {
+nav {
     color: white;
     height: 60px;
     background-color: var(--bg-dark-color);
 }
-
-footer {
-    font-family: "pressStart";
-}
-

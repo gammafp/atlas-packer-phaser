@@ -40,7 +40,6 @@ img {
 .btn-input {
     display: inline-block;
     transition: .5s transform;
-
     &:hover {
         transform: scale(1.2);
     }
@@ -78,4 +77,20 @@ img {
 
 .zoom-out {
     cursor: zoom-out !important;
+}
+
+footer {
+    font-family: "pressStart";
+    color: white;
+    height: 60px;
+    background-color: var(--bg-dark-color);
+    span {
+        color: var(--color-primary);
+    }
+    a {
+        color: var(--color-primary);
+        &:hover {
+            color: var(--color-primary-hover);
+        }
+    }
 }
