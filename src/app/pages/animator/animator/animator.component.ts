@@ -4,7 +4,7 @@ import { LocalStorageService, SharedStorage } from 'ngx-store';
 import { AnimatordbService } from '../../../services/animatordb.service';
 import { map } from 'ramda';
 import * as JSZip from 'jszip';
-import { saveAs } from 'file-saver/FileSaver';
+import { saveAs } from 'file-saver/dist/FileSaver';
 
 declare var swal: any;
 declare var clearString: any;
@@ -12,6 +12,7 @@ declare var deleteSpriteInArray: any;
 declare var Phaser: any;
 declare var b64toBlob: any;
 declare var $: any;
+declare var _$: any;
 declare var html2canvas: any;
 
 @Component({
@@ -29,6 +30,15 @@ export class AnimatorComponent implements OnInit {
     // Controls
     repeatControl: Number = -1;
     frameRateControl: Number = 24; // default 24
+
+    // range zoom
+    zoomAnimOutput: any = 1;
+    zoomSprite: any = 1;
+    rangeZoom: any = 0.5;
+
+    // Elements for make zoom
+    elementOutput: any;
+    elementSpriteSheet: any;
 
     constructor(
         public localStorage: LocalStorageService,
@@ -61,8 +71,32 @@ export class AnimatorComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.elementOutput = _$('#container_phaser');
+        this.elementSpriteSheet = _$('#output');
         this.elementRef.nativeElement.ownerDocument.body.style.backgroundColor = '#1A2226';
         this.phaserCharge();
+        // start tooltips system
+        $(() => {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    }
+
+    zoomAnim(x) {
+        if (x === 'zoomIn') {
+            this.zoomAnimOutput = this.zoomAnimOutput + this.rangeZoom;
+        } else {
+            this.zoomAnimOutput = this.zoomAnimOutput - this.rangeZoom ;
+        }
+        this.elementOutput.style.transform = `scale(${this.zoomAnimOutput})`;
+    }
+
+    zoomSpritesheet(x) {
+        if (x === 'zoomIn') {
+            this.zoomSprite = this.zoomSprite + this.rangeZoom;
+        } else {
+            this.zoomSprite = this.zoomSprite - this.rangeZoom;
+        }
+        this.elementSpriteSheet.style.transform = `scale(${this.zoomSprite})`;
     }
 
     phaserCharge() {
@@ -84,8 +118,8 @@ export class AnimatorComponent implements OnInit {
             };
         }, { width: 0, height: 0 });
         const configPhaser = {
-            width: canvasSize.width,
-            height: canvasSize.height,
+            width: canvasSize.width * 2,
+            height: canvasSize.height * 2,
             // width: 300,
             // height: 200,
             type: Phaser.CANVAS,
@@ -94,7 +128,7 @@ export class AnimatorComponent implements OnInit {
             pixelArt: true,
             scene: { preload, create }
         };
-        let game = new Phaser.Game(configPhaser);
+        const game = new Phaser.Game(configPhaser);
         function preload() {
             this.load.atlas(atlas.name, atlas.spritesheet, atlas.atlas);
         }

@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ImgFilesService } from '../../../services/img-files.service';
 import { AtlasJsonService } from '../../../services/atlas-json.service';
 import * as JSZip from 'jszip';
-import { saveAs } from 'file-saver/FileSaver';
+import { saveAs } from 'file-saver/dist/FileSaver';
 import { LocalStorageService } from 'ngx-store';
 import { Router } from '@angular/router';
 import { AnimatordbService } from '../../../services/animatordb.service';
@@ -183,6 +183,7 @@ export class EditorComponent implements OnInit {
     }
     // Go to page animator
     animate() {
+        this.elementOutput.style.transform = 'scale(1)';
         swal({
             title: '¿Estas seguro?',
             text: 'Saldrás de esta página, ¿estás seguro?',

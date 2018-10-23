@@ -1,12 +1,13 @@
-.col-6 {
-    outline: 1px solid green;
-}
-.col-4, .col-8 {
-    outline: 1px solid blue;
-}
+// .col-6, .col-7 {
+//     outline: 1px solid green;
+// }
+// .col-4, .col-8, .col-5 {
+//     outline: 1px solid blue;
+// }
 
 #output {
-    outline: 1px solid black;
+    // outline: 1px solid black;
+    display: inline-block;
     .col-gamma {
         display: flex;
     }
@@ -26,8 +27,22 @@ main {
     color: white;
     font-family: "pressStart";
     font-size: 12px;
+    // outline: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.anim_keys {
+    display: inline-block;
 }
 
 .key-active {
-    outline: 1px solid orangered;
+    padding: 5px;
+    display: inline-block;
+    background-color: orangered;
+}
+
+.lines {
+    outline: 1px solid white;
 }

@@ -71,6 +71,17 @@ img {
     cursor: not-allowed;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
+.no-drop {
+    cursor: no-drop;
+}
+
+.copy {
+    cursor: copy;
+}
 .zoom-in {
     cursor: zoom-in !important;
 }

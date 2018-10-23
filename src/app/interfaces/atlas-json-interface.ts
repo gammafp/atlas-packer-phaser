@@ -13,4 +13,8 @@ interface FramesInterface {
 }
 export interface AtlasJsonInterface {
     frames: FramesInterface[];
+    meta: {
+        description: string;
+        web: string;
+    };
 }

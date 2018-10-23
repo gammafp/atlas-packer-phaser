@@ -35,7 +35,13 @@ export class AtlasJsonService {
                 });
             });
 
-            this.atlasJson = { 'frames': flatten(this.atlasPuro) };
+            this.atlasJson = {
+                'frames': flatten(this.atlasPuro),
+                'meta': {
+                    'description': 'Atlas generado con Atlas Packer Phaser3',
+                    'web': 'https://gammafp.github.io/atlas-packer-phaser/'
+                }
+            };
         }
     }
 

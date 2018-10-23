@@ -7,73 +7,103 @@
     </span>
 </nav>
 
-<main>
-    <div class="container">
-        <!-- Spritesheets + anim panel -->
-        <div class="row">
-            <div class="col-6">
+<main class="container">
+
+    <!-- Spritesheets + anim panel -->
+    <div class="row">
+        <div class="col-7 lines d-flex justify-content-between flex-column align-items-center " style="height: 42vh">
+            <div class="text-left pt-2 w-100">
                 Spritesheet
-                <!-- {{atlasDB[0].spritesheet_array | json}} -->
-                <div class="row">
-                    <div class="col-12">
-                        <div id="output">
-                            <div class="col-gamma" *ngFor="let images of imagesFiles">
-                                <span class="content_box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}">
-                                    <div class="box" style="outline: 1px solid red" (click)="addSprite(image)">
-                                        <img src="{{image.result}}" >
-                                    </div>
-                                </span>
+            </div>
+            <!-- {{atlasDB[0].spritesheet_array | json}} -->
+
+            <div class="w-100 text-center">
+                <div id="output">
+                    <div class="col-gamma" *ngFor="let images of imagesFiles">
+                        <span class="content_box" *ngFor="let image of images" [ngStyle]="{'width': image.width+'px'}" data-toggle="tooltip" data-placement="top" title="{{image.name}}">
+                            <div class="box copy" (click)="addSprite(image)">
+                                <img src="{{image.result}}">
                             </div>
-                        </div>
+                        </span>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
-                Anim
-                <div id="container_phaser">
-                </div>
+            <div id="zoomSpritesheet" class="pb-2 w-100 text-right">
+                <span class="ml-3">
+                    {{zoomSprite}}
+                </span>
+                <span (click)="zoomSpritesheet('zoomIn')" class="mx-1">
+                    <img src="./assets/img/zoomIn.png" alt="ZoomIn" class="btn-styles zoom-in">
+                </span>
+                <span class="btn-zooms mx-1" (click)="zoomSpritesheet('zoomOut')">
+                    <img src="./assets/img/zoomOut.png" alt="ZoomOut" class="btn-styles zoom-out">
+                </span>
             </div>
         </div>
-        <!-- Panels configuratión -->
-        <div class="row">
-            <div class="col-4">
-                <h4>Panel</h4>
-                <div class="keys-name" *ngFor="let anim of anims">
-                    <div (dblclick)="changeKeyName(anim.key)" (click)="changeActualKey(anim.key)" [ngClass]="{'key-active': anim.key === actualKey}">
-                        {{anim.key}}
+        <div class="lines col-5 pt-2 d-flex justify-content-between flex-column align-items-center">
+            <div class="w-100">
+                Anim
+            </div>
+            <div id="container_phaser">
+            </div>
+            <div id="buttonsZoom" class="pb-2 w-100 text-right">
+                <span class="ml-3">
+                    {{zoomAnimOutput}}
+                </span>
+                <span (click)="zoomAnim('zoomIn')" class="mx-1"><img src="./assets/img/zoomIn.png" alt="ZoomIn" class="btn-styles zoom-in"></span>
+                <span class="btn-zooms mx-1" (click)="zoomAnim('zoomOut')"><img src="./assets/img/zoomOut.png" alt="ZoomOut"
+                        class="btn-styles zoom-out"></span>
+            </div>
+        </div>
+    </div>
+    <!-- Panels configuratión -->
+    <div class="row">
+        <div class="col-7 pb-5 lines" style="height: 40vh">
+            <div class="pt-2">Panel</div>
+            <div class="row">
+                <div class="col-8">
+                    <div class="keys-name" *ngFor="let anim of anims">
+                        <div (dblclick)="changeKeyName(anim.key)" (click)="changeActualKey(anim.key)" class="pointer anim_keys"
+                            [ngClass]="{'key-active': anim.key === actualKey}">
+                            {{anim.key}}
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-12">
-                        <button class="btn btn-primary" (click)="addRemoveKey('add')">+</button>
-                        <button class="btn btn-primary ml-3" (click)="addRemoveKey('remove')">-</button>
+                <div class="col-4">
+                    <div class="row">
+                        <div class="col-12 p-5">
+                            <button class="btn btn-primary" (click)="addRemoveKey('add')">+</button>
+                            <button class="btn btn-primary ml-3" (click)="addRemoveKey('remove')">-</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-8">
-                Key controls
-                <div class="row">
-                    <div class="col-12">
-                        output:
-                        <span *ngFor="let frame of actualFrames">
-                            <img src="{{frame.result}}" (click)="removeSprite(frame.frame)">
-                        </span>
-                        <div class="controls">
-                            <br>
-                            <label for="repeatControl">Repeat: </label>
-                            <input type="number" id="repeatControl" min="-1" [(ngModel)]="repeatControl" (change)="updateAnimsControls()">
-                            <br>
-                            <label for="rateControl">Frame Rate: </label>
-                            <input type="number" id="rateControl" min="1" [(ngModel)]="frameRateControl" (change)="updateAnimsControls()">
-                        </div>
-                        <div>
-                            <button class="btn btn-primary" (click)="generateAnim()">Generar</button>
-                        </div>
+
+        </div>
+        <div class="col-5 pb-5 lines">
+            Key controls
+            <div class="row">
+                <div class="col-12">
+                    output:
+                    <span *ngFor="let frame of actualFrames" class="no-drop">
+                        <img src="{{frame.result}}" (click)="removeSprite(frame.frame)">
+                    </span>
+                    <div class="controls">
+                        <br>
+                        <label for="repeatControl">Repeat: </label>
+                        <input type="number" id="repeatControl" min="-1" [(ngModel)]="repeatControl" (change)="updateAnimsControls()">
+                        <br>
+                        <label for="rateControl">Frame Rate: </label>
+                        <input type="number" id="rateControl" min="1" [(ngModel)]="frameRateControl" (change)="updateAnimsControls()">
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" (click)="generateAnim()">Generar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </main>
 
 
