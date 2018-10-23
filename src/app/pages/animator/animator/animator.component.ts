@@ -1,10 +1,10 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageService, SharedStorage } from 'ngx-store';
 import { AnimatordbService } from '../../../services/animatordb.service';
 import { map } from 'ramda';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver/dist/FileSaver';
+import { LocalStorageService } from 'ngx-store';
 
 declare var swal: any;
 declare var clearString: any;

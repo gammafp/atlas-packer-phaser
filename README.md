@@ -1,27 +1,33 @@
-# AtlasPackerPhaser3
+# Atlas Packer Phaser (APP)
+Un software simple para empaquetar grupo de imágenes y crearnos un atlas para Phaser.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.5.
+## Instalación: 
+- Solo basta con descargar el repositorio y hacer npm install, no se ha usado ningún server pero estaría recomendable usar visual studio code con liveserver.
+- Usar node v8.11.4 o superior.
+- Se ha usado Angular 6.
 
-## Development server
+Para iniciar el servidor es en la consola haciendo 
+```ng serve```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Comandos útiles: 
+Generacion de páginas lazyload (ejemplo): 
+```
+ng g m pages/home --routing true --spec false
+ng g c pages/home/home --spec false
+```
 
-## Code scaffolding
+Una vez creada la página hay que editar el routing y agregar el componente principal: 
+```javascript
+import { EditorComponent } from './editor/editor.component';
+...
+const routes: Routes = [{
+    path: '',
+    component: EditorComponent
+}];
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```
+Luego agregarlo a la ruta como siempre.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Proyecto en desarrollo

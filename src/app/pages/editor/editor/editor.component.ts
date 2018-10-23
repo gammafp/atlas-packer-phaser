@@ -3,7 +3,6 @@ import { ImgFilesService } from '../../../services/img-files.service';
 import { AtlasJsonService } from '../../../services/atlas-json.service';
 import * as JSZip from 'jszip';
 import { saveAs } from 'file-saver/dist/FileSaver';
-import { LocalStorageService } from 'ngx-store';
 import { Router } from '@angular/router';
 import { AnimatordbService } from '../../../services/animatordb.service';
 import { flatten } from 'ramda';
@@ -44,7 +43,6 @@ export class EditorComponent implements OnInit {
     constructor(
         public imgFilesService: ImgFilesService,
         public atlasJsonService: AtlasJsonService,
-        public localStorage: LocalStorageService,
         public router: Router,
         public animatorService: AnimatordbService,
         private elementRef: ElementRef
