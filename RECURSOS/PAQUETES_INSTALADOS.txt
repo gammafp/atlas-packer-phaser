@@ -1,0 +1,1 @@
+npm install --save animate.css bootstrap file-saver html2canvas jquery jszip ngx-store perfect-scrollbar phaser popper.js ramda sweetalert2 typed.js angular-cli-ghpages
