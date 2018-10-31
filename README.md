@@ -1,7 +1,7 @@
 # Atlas Packer Phaser (APP)
 Un software simple para empaquetar grupo de imágenes y crearnos un atlas para Phaser.
 
-# [DEMO](http://app3.tk/)
+# [DEMO](https://gammafp.github.io/atlas-packer-phaser/)
 
 ![](https://i.gyazo.com/c50e2880f201d11fbd6b6d974af8f64f.png)
 
