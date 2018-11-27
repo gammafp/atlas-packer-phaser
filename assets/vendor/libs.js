@@ -19,7 +19,7 @@ const clearString = string => {
 const deleteSpriteInArray = (objectName, objectsSprite) => {
     return objectsSprite.filter(
         (x) =>
-            (('name' in objectsSprite)) ? x.name != objectName : x.key != objectName
+        (('name' in objectsSprite)) ? x.name != objectName : x.key != objectName
     );
 }
 
@@ -41,6 +41,16 @@ const readMultipleFiles = (files) =>
             img.src = result;
         }
         reader.readAsDataURL(files);
+    });
+
+const readJSONFiles = (files) =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (x) => {
+            const result = x.target.result;
+            resolve(result);
+        }
+        reader.readAsText(files);
     });
 
 // re
@@ -95,6 +105,36 @@ class NacatamalON {
                     return output;
                 })
             );
+    }
+
+    getLinesOfAtlas(atlas) {
+        return atlas.frames.reduce((prev, current) =>
+            (atlas.frames[0].frame.y === current.frame.y) ? prev + 1 : prev + 0, 0);
+    }
+
+    cutAtlasSheet(src, atlas) {
+        return atlas.frames.map((x) => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext("2d");
+            const img = new Image();
+
+            img.src = src.result;
+            canvas.width = x.frame.w;
+            canvas.height = x.frame.h;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, -(x.frame.x), -(x.frame.y));
+            const output = {
+                "name": x.filename,
+                "result": canvas.toDataURL(),
+                "xy": x.frame,
+                "width": x.frame.w,
+                "height": x.frame.h,
+                "anchor": x.anchor
+            };
+            return output;
+
+        });
+
 
     }
 }
@@ -102,7 +142,7 @@ class NacatamalON {
 
 // Data convert
 const b64toBlob = (b64DataIn, contentType, sliceSize) => {
-    let b64Data =  b64DataIn.replace(/^data:(\w*\/\w*;)base64,/, '');
+    let b64Data = b64DataIn.replace(/^data:(\w*\/\w*;)base64,/, '');
     contentType = contentType || '';
     sliceSize = sliceSize || 512;
 
@@ -110,19 +150,20 @@ const b64toBlob = (b64DataIn, contentType, sliceSize) => {
     var byteArrays = [];
 
     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      var slice = byteCharacters.slice(offset, offset + sliceSize);
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
 
-      var byteNumbers = new Array(slice.length);
-      for (var i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
 
-      var byteArray = new Uint8Array(byteNumbers);
+        var byteArray = new Uint8Array(byteNumbers);
 
-      byteArrays.push(byteArray);
+        byteArrays.push(byteArray);
     }
 
-    var blob = new Blob(byteArrays, {type: contentType});
+    var blob = new Blob(byteArrays, {
+        type: contentType
+    });
     return blob;
-  }
-
+}
