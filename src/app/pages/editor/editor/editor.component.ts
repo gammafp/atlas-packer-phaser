@@ -167,7 +167,8 @@ export class EditorComponent implements OnInit {
         zip.file(`${nameFiles}_atlas.json`, dataStr);
 
         html2canvas(_$('#output'), {
-            backgroundColor: 'rgba(0, 0, 0, 0)'
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+            scale: 1
         }).then((canvas) => {
             // Generate zip
             zip.file(`${nameFiles}.png`, canvas.toDataURL().replace('data:image/png;base64,', ''), { base64: true });
