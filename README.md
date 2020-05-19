@@ -1,3 +1,9 @@
+# Este proyecto está obsoleto ya que se ha actualizado a un mejor atlas-packer
+Puedes acceder a la nueva versión del atlas packer accediendo acá: 
+[CLICAME](https://gammafp.com/tools/)
+
+---
+
 # Atlas Packer Phaser (APP)
 Un software simple para empaquetar grupo de imágenes y crearnos un atlas para Phaser.
 
